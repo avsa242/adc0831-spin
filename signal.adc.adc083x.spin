@@ -68,6 +68,9 @@ PUB stop()
     dira[_MISO] := 0
     longfill(@_CS, 0, 4)
 
+PUB defaults()
+' Factory default settings
+
 PUB adc2volts(adc_word)
 ' Convert ADC word to microvolts
     return ((adc_word * ADC_SCALE_1V) / ADC_RANGE) * VREF
