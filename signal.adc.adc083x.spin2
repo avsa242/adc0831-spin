@@ -1,13 +1,12 @@
 {
-    --------------------------------------------
-    Filename: signal.adc.adc083x.spin2
-    Author: Jesse Burt
-    Description: Driver for the TI ADC083x family of ADCs (P2 version)
-    Copyright (c) 2023
-    Started Jun 24, 2023
-    Updated Jun 30, 2023
-    See end of file for terms of use.
-    --------------------------------------------
+---------------------------------------------------------------------------------------------------
+    Filename:       signal.adc.adc083x.spin2
+    Description:    Driver for the TI ADC083x family of ADCs
+    Author:         Jesse Burt
+    Started:        Jun 24, 2023
+    Updated:        Jan 26, 2024
+    Copyright (c) 2024 - See end of file for terms of use.
+---------------------------------------------------------------------------------------------------
 }
 
 CON
@@ -131,7 +130,7 @@ PUB set_model(m)
 
 DAT
 {
-Copyright (c) 2023 Jesse Burt
+Copyright (c) 2024 Jesse Burt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
