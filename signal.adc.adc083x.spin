@@ -83,31 +83,31 @@ PUB stop()
 PUB defaults()
 ' Factory default settings
 
-PUB adc2volts(adc_word)
+PUB adc2volts(adc_word): v
 ' Convert ADC word to microvolts
     return ((adc_word * ADC_SCALE_1V) / ADC_RANGE) * VREF
 
-PUB adc_data(): w | cs, sck, mosi, miso, sck_hperiod
+PUB adc_data(): w | cs_pin, sck_pin, mosi_pin, miso_pin, sck_hperiod
 ' ADC word
 '   Returns: u8
-    longmove(@cs, @_CS, 5)                      ' copy i/o pins and timing
+    longmove(@cs_pin, @_CS, 5)                  ' copy i/o pins and timing
 
-    outa[cs] := 0                               ' select the chip
-    !outa[sck]                                  ' pulse clock to bring MISO out of tri-state
-    !outa[sck]
+    outa[cs_pin] := 0                           ' select the chip
+    !outa[sck_pin]                              ' pulse clock to bring MISO out of tri-state
+    !outa[sck_pin]
 
     w := 0
     repeat 8
-        !outa[sck]
+        !outa[sck_pin]
 #ifdef __OUTPUT_ASM__
         waitcnt(cnt+sck_hperiod)                ' pace the clock properly if building PASM code
 #endif                                          '   (not necessary when building bytecode)
-        !outa[sck]
+        !outa[sck_pin]
 #ifdef __OUTPUT_ASM__
         waitcnt(cnt+sck_hperiod)
 #endif
-        w := (w << 1) | ina[miso]               ' sample _after_ the clock pulse
-    outa[cs] := 1
+        w := (w << 1) | ina[miso_pin]           ' sample _after_ the clock pulse
+    outa[cs_pin] := 1
 
 PUB adc_scale(s)
 ' dummy method for API compatibility with other drivers
