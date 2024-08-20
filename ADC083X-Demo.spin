@@ -33,9 +33,11 @@ PUB main()
     adc.start()
     ser.strln(@"ADC083x driver started")
 
-    show_adc_data()
-
-#include "adcdemo.common.spinh"                 ' use code common to all ADC demos
+    repeat
+        v := adc.voltage()
+        ser.pos_xy(0, 3)
+        ser.printf2(@"Voltage: %d.%06.6dv\n\r", (v / 1_000_000), ...
+                                                ||(v // 1_000_000) )
 
 
 DAT

@@ -22,7 +22,7 @@ OBJ
     adc:    "signal.adc.adc083x" | CS=0, SCK=1, MOSI=-1, MISO=2, SPI_FREQ=400_000
 
 
-PUB main()
+PUB main() | v
 
     ser.start()
 
@@ -32,9 +32,11 @@ PUB main()
     adc.start()
     ser.strln(@"ADC083x driver started")
 
-    show_adc_data()
-
-#include "adcdemo.common.spin2h"                    ' use code common to all ADC demos
+    repeat
+        v := adc.voltage()
+        ser.pos_xy(0, 3)
+        ser.printf(@"Voltage: %d.%06.6dv\n\r",  (v / 1_000_000), ...
+                                                abs(v // 1_000_000) )
 
 
 DAT
