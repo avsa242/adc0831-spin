@@ -1,15 +1,23 @@
 {
----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
     Filename:       signal.adc.adc083x.spin
     Description:    Driver for the TI ADC083x family of ADCs
     Author:         Jesse Burt
     Started:        Jun 21, 2023
-    Updated:        Jan 26, 2024
+    Updated:        Aug 20, 2024
     Copyright (c) 2024 - See end of file for terms of use.
----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 }
 
 CON
+
+    { default I/O settings; these can be overridden in the parent object }
+    CS          = 0
+    SCK         = 1
+    MOSI        = 2
+    MISO        = 2
+    SPI_FREQ    = 100_000
+
 
     { limits }
     ADC_BITS        = 8
@@ -22,12 +30,6 @@ CON
     ADC_MAX         = ADC_RANGE-1
     ADC_SCALE_1V    = 1_000
 
-    { default I/O settings; these can be overridden in the parent object }
-    CS          = 0
-    SCK         = 1
-    MOSI        = 2
-    MISO        = 2
-    SPI_FREQ    = 100_000
 
 VAR
 
@@ -35,12 +37,15 @@ VAR
     long _sck_hperiod
     byte _ch
 
+
 PUB null()
 ' This is not a top-level object
+
 
 PUB start{}: status
 ' Start the driver using default I/O settings
     return startx(CS, SCK, MOSI, MISO, SPI_FREQ)
+
 
 PUB startx(CS_PIN, SCK_PIN, MOSI_PIN, MISO_PIN, SCK_FREQ): status
 ' Start using custom IO pins
@@ -68,6 +73,7 @@ PUB startx(CS_PIN, SCK_PIN, MOSI_PIN, MISO_PIN, SCK_FREQ): status
     ' Lastly - make sure you have at least one free core/cog
     return FALSE
 
+
 PUB stop()
 ' Stop the driver
 '   Restore i/o pins to default state
@@ -79,12 +85,15 @@ PUB stop()
     dira[_MISO] := 0
     longfill(@_CS, 0, 4)
 
+
 PUB defaults()
 ' Factory default settings
+
 
 PUB adc2volts(adc_word): v
 ' Convert ADC word to microvolts
     return ((adc_word * ADC_SCALE_1V) / ADC_RANGE) * VREF
+
 
 PUB adc_data(): w | cs_pin, sck_pin, mosi_pin, miso_pin, sck_hperiod
 ' ADC word
@@ -108,28 +117,35 @@ PUB adc_data(): w | cs_pin, sck_pin, mosi_pin, miso_pin, sck_hperiod
         w := (w << 1) | ina[miso_pin]           ' sample _after_ the clock pulse
     outa[cs_pin] := 1
 
+
 PUB adc_scale(s)
 ' dummy method for API compatibility with other drivers
+
 
 CON OVERHEAD_CYCLES = 29
 PUB calc_sck_half_period(sck_freq)
 ' Calculate SCK half period in system ticks
     _sck_hperiod := ((clkfreq / sck_freq) / 2)-OVERHEAD_CYCLES
 
+
 CON #0, CONT, SINGLE
 PUB opmode(m)
 ' dummy method for API compatibility with other drivers
+
 
 PUB set_adc_channel(ch)
 ' Set ADC channel for subsequent reads
 '   Valid values: 0..4 (availability dependent on specific model connected)
     _ch := 0 #> ch <# 1
 
+
 PUB set_model(m)
 ' dummy method for API compatibility with other drivers
 
+
 { pull in code common to all ADC drivers, e.g., voltage() }
 #include "signal.adc.common.spinh"
+
 
 DAT
 {

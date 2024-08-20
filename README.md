@@ -14,6 +14,7 @@ This is a P8X32A/Propeller, P2X8C4M64P/Propeller 2 driver object for the TI ADC0
 * Read voltage in microvolts
 * SCK frequency changeable at any time between samples, and adapts to current system clock (P1 only using PASM builds, or P2)
 
+
 ## Requirements
 
 P1/SPIN1:
@@ -29,10 +30,10 @@ P2/SPIN2:
 
 | Processor | Language | Compiler               | Backend      | Status                |
 |-----------|----------|------------------------|--------------|-----------------------|
-| P1        | SPIN1    | FlexSpin (6.8.0)       | Bytecode     | OK                    |
-| P1        | SPIN1    | FlexSpin (6.8.0)       | Native/PASM  | OK                    |
-| P2        | SPIN2    | FlexSpin (6.8.0)       | NuCode       | OK                    |
-| P2        | SPIN2    | FlexSpin (6.8.0)       | Native/PASM2 | OK                    |
+| P1        | SPIN1    | FlexSpin (6.9.4)       | Bytecode     | OK                    |
+| P1        | SPIN1    | FlexSpin (6.9.4)       | Native/PASM  | OK                    |
+| P2        | SPIN2    | FlexSpin (6.9.4)       | NuCode       | OK                    |
+| P2        | SPIN2    | FlexSpin (6.9.4)       | Native/PASM2 | OK                    |
 
 (other versions or toolchains not listed are __not supported__, and _may or may not_ work)
 

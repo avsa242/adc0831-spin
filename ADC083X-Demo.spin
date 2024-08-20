@@ -1,36 +1,31 @@
 {
-    --------------------------------------------
-    Filename: ADC083x-Demo.spin
-    Author: Jesse Burt
-    Description: Demo of the ADC083x ADC driver
-    Copyright (c) 2023
-    Started Jun 21, 2023
-    Updated Jul 14, 2023
-    See end of file for terms of use.
-    --------------------------------------------
+----------------------------------------------------------------------------------------------------
+    Filename:       ADC083x-Demo.spin
+    Description:    Demo of the ADC083x ADC driver
+    Author:         Jesse Burt
+    Started:        Jun 21, 2023
+    Updated:        Aug 20, 2024
+    Copyright (c) 2024 - See end of file for terms of use.
+----------------------------------------------------------------------------------------------------
 }
 
 CON
 
-    _clkmode    = cfg#_clkmode
-    _xinfreq    = cfg#_xinfreq
-
-' -- User-defined constants
-    SER_BAUD    = 115_200
-
-' --
+    _clkmode    = cfg._clkmode
+    _xinfreq    = cfg._xinfreq
 
 
 OBJ
 
     cfg:    "boardcfg.flip"
-    ser:    "com.serial.terminal.ansi"
     time:   "time"
+    ser:    "com.serial.terminal.ansi" | SER_BAUD=115_200
     adc:    "signal.adc.adc083x" | CS=0, SCK=1, MOSI=-1, MISO=2, SPI_FREQ=400_000
+
 
 PUB main()
 
-    ser.start(SER_BAUD)
+    ser.start()
     time.msleep(30)
     ser.clear()
     ser.strln(@"Serial terminal started")
@@ -40,11 +35,12 @@ PUB main()
 
     show_adc_data()
 
-#include "adcdemo.common.spinh"
+#include "adcdemo.common.spinh"                 ' use code common to all ADC demos
+
 
 DAT
 {
-Copyright (c) 2023 Jesse Burt
+Copyright (c) 2024 Jesse Burt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,

@@ -1,13 +1,12 @@
 {
-    --------------------------------------------
-    Filename: ADC083x-Demo.spin2
-    Author: Jesse Burt
-    Description: Demo of the ADC083x ADC driver (P2 version)
-    Copyright (c) 2023
-    Started Jun 24, 2023
-    Updated Jul 14, 2023
-    See end of file for terms of use.
-    --------------------------------------------
+----------------------------------------------------------------------------------------------------
+    Filename:       ADC083x-Demo.spin
+    Description:    Demo of the ADC083x ADC driver
+    Author:         Jesse Burt
+    Started:        Jun 21, 2023
+    Updated:        Aug 20, 2024
+    Copyright (c) 2024 - See end of file for terms of use.
+----------------------------------------------------------------------------------------------------
 }
 
 CON
@@ -15,21 +14,18 @@ CON
     _clkfreq    = cfg._clkfreq_def
     _xtlfreq    = cfg._xtlfreq
 
-' -- User-defined constants
-    SER_BAUD    = 2_000_000
-
-' --
-
 
 OBJ
 
     cfg:    "boardcfg.p2eval"
-    ser:    "com.serial.terminal.ansi"
+    ser:    "com.serial.terminal.ansi" | SER_BAUD=2_000_000
     adc:    "signal.adc.adc083x" | CS=0, SCK=1, MOSI=-1, MISO=2, SPI_FREQ=400_000
+
 
 PUB main()
 
-    ser.start(SER_BAUD)
+    ser.start()
+
     ser.clear()
     ser.strln(@"Serial terminal started")
 
@@ -38,11 +34,12 @@ PUB main()
 
     show_adc_data()
 
-#include "adcdemo.common.spin2h"
+#include "adcdemo.common.spin2h"                    ' use code common to all ADC demos
+
 
 DAT
 {
-Copyright (c) 2023 Jesse Burt
+Copyright (c) 2024 Jesse Burt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
