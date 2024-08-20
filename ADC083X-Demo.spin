@@ -23,7 +23,7 @@ OBJ
     adc:    "signal.adc.adc083x" | CS=0, SCK=1, MOSI=-1, MISO=2, SPI_FREQ=400_000
 
 
-PUB main()
+PUB main() | v
 
     ser.start()
     time.msleep(30)
