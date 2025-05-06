@@ -4,23 +4,22 @@
     Description:    Demo of the ADC083x ADC driver
     Author:         Jesse Burt
     Started:        Jun 21, 2023
-    Updated:        Aug 20, 2024
-    Copyright (c) 2024 - See end of file for terms of use.
+    Updated:        May 6, 2025
+    Copyright (c) 2025 - See end of file for terms of use.
 ----------------------------------------------------------------------------------------------------
 }
 
 CON
 
-    _clkmode    = cfg._clkmode
-    _xinfreq    = cfg._xinfreq
+    _clkmode    = xtal1+pll16x
+    _xinfreq    = 5_000_000
 
 
 OBJ
 
-    cfg:    "boardcfg.flip"
-    time:   "time"
     ser:    "com.serial.terminal.ansi" | SER_BAUD=115_200
     adc:    "signal.adc.adc083x" | CS=0, SCK=1, MOSI=-1, MISO=2, SPI_FREQ=400_000
+    time:   "time"
 
 
 PUB main() | v
@@ -36,13 +35,13 @@ PUB main() | v
     repeat
         v := adc.voltage()
         ser.pos_xy(0, 3)
-        ser.printf2(@"Voltage: %d.%06.6dv\n\r", (v / 1_000_000), ...
+        ser.printf(@"Voltage: %d.%06.6dv\n\r",  (v / 1_000_000), ...
                                                 ||(v // 1_000_000) )
 
 
 DAT
 {
-Copyright (c) 2024 Jesse Burt
+Copyright (c) 2025 Jesse Burt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,

@@ -4,20 +4,19 @@
     Description:    Demo of the ADC083x ADC driver
     Author:         Jesse Burt
     Started:        Jun 21, 2023
-    Updated:        Aug 20, 2024
-    Copyright (c) 2024 - See end of file for terms of use.
+    Updated:        May 6, 2025
+    Copyright (c) 2025 - See end of file for terms of use.
 ----------------------------------------------------------------------------------------------------
 }
 
 CON
 
-    _clkfreq    = cfg._clkfreq_def
-    _xtlfreq    = cfg._xtlfreq
+    _clkfreq    = 180_000_000
+    _xtlfreq    = 20_000_000
 
 
 OBJ
 
-    cfg:    "boardcfg.p2eval"
     ser:    "com.serial.terminal.ansi" | SER_BAUD=2_000_000
     adc:    "signal.adc.adc083x" | CS=0, SCK=1, MOSI=-1, MISO=2, SPI_FREQ=400_000
 
@@ -41,7 +40,7 @@ PUB main() | v
 
 DAT
 {
-Copyright (c) 2024 Jesse Burt
+Copyright (c) 2025 Jesse Burt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
